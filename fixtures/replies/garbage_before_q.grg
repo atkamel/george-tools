@@ -1,0 +1,10 @@
+#u test
+#a 00
+
+this is not a directive
+
+#q 01
+
+#check PROP
+
+a => b

@@ -1,0 +1,165 @@
+{
+  "name": "george-vscode",
+  "displayName": "george",
+  "description": "Run george (SE212, University of Waterloo) on .grg files from VS Code: syntax highlighting, Run button, diagnostics, assignment downloads.",
+  "version": "0.1.0",
+  "publisher": "george-tools",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LegendaryAKx3/george-tools.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Education"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:george"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "george",
+        "aliases": [
+          "george",
+          "grg"
+        ],
+        "extensions": [
+          ".grg"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "george",
+        "scopeName": "source.grg",
+        "path": "./syntaxes/george.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "george.run",
+        "title": "Run George",
+        "category": "george",
+        "icon": "$(run)"
+      },
+      {
+        "command": "george.login",
+        "title": "Log in to the course site",
+        "category": "george"
+      },
+      {
+        "command": "george.setUserIds",
+        "title": "Set group user ids (#u)",
+        "category": "george"
+      },
+      {
+        "command": "george.download",
+        "title": "Download all assignment files",
+        "category": "george",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "george.downloadFile",
+        "title": "Download this file",
+        "category": "george"
+      },
+      {
+        "command": "george.refreshAssignments",
+        "title": "Refresh",
+        "category": "george",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "george.run",
+          "when": "resourceLangId == george",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "george.run",
+          "when": "resourceLangId == george",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "george.download",
+          "when": "view == georgeAssignments",
+          "group": "navigation"
+        },
+        {
+          "command": "george.refreshAssignments",
+          "when": "view == georgeAssignments",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "george.downloadFile",
+          "when": "view == georgeAssignments && viewItem == file",
+          "group": "inline"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "george.downloadFile",
+          "when": "false"
+        },
+        {
+          "command": "george.refreshAssignments",
+          "when": "false"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "george.run",
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "when": "editorTextFocus && resourceLangId == george"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "georgeAssignments",
+          "name": "SE212 Assignments",
+          "icon": "$(mortar-board)",
+          "contextualTitle": "SE212 Assignments"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "george",
+      "properties": {
+        "george.timeoutMs": {
+          "type": "number",
+          "default": 900000,
+          "description": "How long to wait for george before giving up, in milliseconds."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -b && node build.mjs",
+    "package": "node package.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.48.0"
+  },
+  "devDependencies": {
+    "@george-tools/core": "0.1.0",
+    "@types/vscode": "^1.85.0"
+  }
+}

@@ -1,0 +1,4 @@
+
++-+-+ George Version 2026-09-06
+Input file had syntax errors and may not have been parsed correctly or completely
+line 9:0 mismatched input '<EOF>' expecting {'exists', 'forall', '!', 'pow', '(', '{', NUMBER, PATIDENT, IDENT}

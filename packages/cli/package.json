@@ -1,0 +1,25 @@
+{
+  "name": "george-tools",
+  "version": "0.1.0",
+  "description": "CLI for george, the SE212 logic checker: download assignments, check .grg files from the terminal.",
+  "type": "module",
+  "bin": {
+    "george": "./dist/george.js"
+  },
+  "files": ["dist"],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -b && node build.mjs"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "playwright-core": "^1.48.0"
+  },
+  "devDependencies": {
+    "@george-tools/core": "0.1.0"
+  },
+  "keywords": ["george", "se212", "uwaterloo", "logic"],
+  "license": "MIT"
+}

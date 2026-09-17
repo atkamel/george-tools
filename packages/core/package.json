@@ -1,0 +1,19 @@
+{
+  "name": "@george-tools/core",
+  "version": "0.1.0",
+  "description": "Library for talking to george, the SE212 logic checker: check files, parse feedback, download assignments.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "playwright-core": "^1.48.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,43 @@
+#u test
+#a 00
+
+#q 10
+
+#check Z
+
+{ People,CdnPCs,Ridings }
+
+Errors ::= TooYoung|NotCanadian
+
+schema Constants begin
+  MinAge:nat
+  Age:People --> nat
+  PC:People -|-> CdnPCs
+  Cdns:pow(People)
+  Riding:CdnPCs -->> Ridings
+pred
+  MinAge = 18;;
+end
+
+schema VotingSystem begin
+  CandidateToRiding:People -|-> Ridings
+  VotesForCandidate:People -|-> nat
+  RegisteredVoters:Ridings --> pow(People)
+  Voted:pow(People)
+pred
+  dom(CandidateToRiding) = dom(VotesForCandidate);;
+  Voted sube gen_U(ran(RegisteredVoters));;
+  dom(CandidateToRiding) sube Cdns;;
+  gen_U(ran(RegisteredVoters)) sube Cdns;;
+  forall x:People . x in Voted => Age(x) >= MinAge;;
+  forall x:People . x in dom(CandidateToRiding) => Age(x) >= MinAge;;
+end
+
+schema Initial begin
+  VotingSystem
+pred
+  CandidateToRiding = empty;;
+  VotesForCandidate = empty;;
+  ran(RegisteredVoters) = {empty};;
+  Voted = empty;;
+end

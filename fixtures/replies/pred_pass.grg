@@ -1,0 +1,8 @@
+#u test
+#a 00
+
+#q 02
+
+#check PRED
+
+forall x. studies(x) => passes(x,SE212)

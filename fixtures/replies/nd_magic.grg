@@ -1,0 +1,14 @@
+#u test
+#a 00
+
+#q 05
+
+#check ND
+
+p => !p  |-  !p
+
+1) p => !p premise
+2) disprove p {
+  3) false by magic
+}
+5) !p by raa on 2-3

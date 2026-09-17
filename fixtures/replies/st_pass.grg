@@ -1,0 +1,24 @@
+#u test
+#a 00
+
+#q 06
+
+#check ST
+
+p | !q => r, !r |- q
+
+1) p | !q => r
+2) !r
+3) !q
+by imp_br on 1
+{
+	4) !(p | !q)
+	by not_or_nb on 4
+	5) !p
+	6) !!q
+	closed on  3,6
+}
+{
+	7) r
+	closed on 2,7
+}

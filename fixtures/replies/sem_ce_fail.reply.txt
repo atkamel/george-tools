@@ -1,0 +1,13 @@
+
++-+-+ George Version 2026-09-06
+
+#q 03, part 1, #check SEM_CE
+++ Comment: Symbols correctly declared
+++ Comment: Typechecking passed
+++ Comment: All types and symbols used are declared
+++ Comment: All types and symbols are used
+++ Comment: Premise 1 means F
+++ Comment: Conclusion means F
+++ Comment: Syntax checked
+-- Error: Not a counterexample to this argument
+

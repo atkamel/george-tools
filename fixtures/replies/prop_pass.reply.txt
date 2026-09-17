@@ -1,0 +1,7 @@
+
++-+-+ George Version 2026-09-06
+
+#q 01, part 1, #check PROP
+++ Comment: Formula is in propositional logic
+++ Comment: Syntax checked
+

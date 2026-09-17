@@ -1,0 +1,7 @@
+
++-+-+ George Version 2026-09-06
+
+#q 02, part 1, #check PRED
+++ Comment: Typechecking passed
+++ Comment: Syntax checked
+

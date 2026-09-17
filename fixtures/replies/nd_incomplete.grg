@@ -1,0 +1,11 @@
+#u test
+#a 00
+
+#q 05
+
+#check ND
+
+p => q  |-  q
+
+1) p => q premise
+2) q by imp_e on 1

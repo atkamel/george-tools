@@ -1,0 +1,10 @@
+
++-+-+ George Version 2026-09-06
+
+#q 04, part 1, #check TP
+++ Comment: Typechecking passed
+++ Comment: All lines numbers different
+++ Comment: TP rules checked
+++ Comment: Goal matches proof
+++ Comment: Syntax checked
+

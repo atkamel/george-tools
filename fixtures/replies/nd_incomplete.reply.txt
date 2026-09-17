@@ -1,0 +1,9 @@
+
++-+-+ George Version 2026-09-06
+
+#q 05, part 1, #check ND
+++ Comment: Typechecking passed
+++ Comment: All lines numbers different
+++ Comment: Syntax checked
+-- Error: line 11: Expected 2 premise(s), got 1
+

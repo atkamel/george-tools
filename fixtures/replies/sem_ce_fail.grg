@@ -1,0 +1,11 @@
+#u test
+#a 00
+
+#q 03
+
+#check SEM_CE
+
+[a:bool] := F
+[b:bool]:= T
+
+b & a |= a

@@ -1,0 +1,17 @@
+#u test
+#a 00
+
+#q 08
+
+#check TP
+
+B = C
+<->
+B sube C & C sube B
+
+1) B = C
+2) forall x. x in B <=> x in C                               by set // equality
+3) forall x. (x in B => x in C) & (x in C => x in B)         by equiv
+4) (forall x. x in B => x in C) & (forall x. x in C => x in B)  by forall_over_and
+5) (B sube C) & (forall x. x in C => x in B)   by set // subset
+6) (B sube C) & (C sube B)  by set // subset

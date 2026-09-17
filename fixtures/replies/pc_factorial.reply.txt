@@ -1,0 +1,30 @@
+
++-+-+ George Version 2026-09-06
+
+#q 09, part 1, #check PC
+++ Comment: PC and ND rule names checked
+++ Comment: Syntax checked
+
+#q 09, part 2, #check ND
+++ Comment: Typechecking passed
+++ Comment: All lines numbers different
+++ Comment: ND rules checked
+++ Comment: Goal matches proof
+++ Comment: Syntax checked
+-- Warning: Unchecked rule: `arith` used on line(s): 38
+
+#q 09, part 3, #check ND
+++ Comment: Typechecking passed
+++ Comment: All lines numbers different
+++ Comment: ND rules checked
+++ Comment: Goal matches proof
+++ Comment: Syntax checked
+-- Warning: Unchecked rule: `arith` used on line(s): 51
+
+#q 09, part 4, #check ND
+++ Comment: Typechecking passed
+++ Comment: All lines numbers different
+++ Comment: ND rules checked
+++ Comment: Goal matches proof
+++ Comment: Syntax checked
+

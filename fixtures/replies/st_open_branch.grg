@@ -1,0 +1,20 @@
+#u test
+#a 00
+
+#q 06
+
+#check ST
+
+h => s, r=> !s, h |- !r
+
+1) h => s
+2) r=> !s
+3) h
+4) !!r
+by imp_br on 2
+{
+	5) !r
+}
+{
+	6) !s
+}

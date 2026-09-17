@@ -1,0 +1,13 @@
+#u test
+#a 00
+
+#q 04
+
+#check TP
+
+! (!r => (r & q)) <->  !r
+
+1) ! (!r => (r & q))
+2) ! (!!r | (r & q)) by impl
+3) ! (r | (r & q)) by dm
+4) ! r by simp2

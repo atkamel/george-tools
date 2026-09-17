@@ -1,0 +1,16 @@
+#u test
+#a 00
+
+#q 07
+
+#check ND
+
+|- forall n:nat . 3^n >= 2^n
+
+bc) 3^0 >= 2^0      by arith
+
+ih) inductionstep 3^ng >= 2^ng {
+    2) 3^ng * 3 >= 2^ng * 2  by arith on ih
+    3) 3^(ng+1) >= 2^(ng+1)  by arith on 2
+}
+4) forall n. 3^n >= 2^n by induction on bc,ih-3

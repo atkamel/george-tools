@@ -1,0 +1,14 @@
+
++-+-+ George Version 2026-09-06
+
+#q 10, part 1, #check Z
+++ Comment: Symbols correctly declared
+++ Comment: Typechecking passed
+++ Comment: All types and symbols used are declared
+++ Comment: Schema includes checked
+++ Comment: Syntax checked
+-- Warning: Symbol `TooYoung` is declared but not used
+-- Warning: Symbol `NotCanadian` is declared but not used
+-- Warning: line 15: Symbol `PC` is declared but not used
+-- Warning: line 17: Symbol `Riding` is declared but not used
+

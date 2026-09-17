@@ -1,0 +1,8 @@
+#u test
+#a 00
+
+#q 01
+
+#check PROP
+
+(a & b) => !c

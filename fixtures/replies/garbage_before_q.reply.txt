@@ -1,0 +1,4 @@
+
++-+-+ George Version 2026-09-06
+Input file had syntax errors and may not have been parsed correctly or completely
+line 4:0 extraneous input 'this' expecting {<EOF>, '#u', '#a', QQUES_DIR, QUES_DIR, '#fsoln', '#f', PROP_DIR, PRED_DIR, PREDTYPES_DIR, CE_DIR, FALSE_DIR, TRUE_DIR, SEMANTICS_DIR, TP_DIR, ND_DIR, NDVERBOSE_DIR, ST_DIR, Z_DIR, PC_DIR, PCRUN_DIR, PCRUNVERBOSE_DIR, '#input', LATEX_SOLN, LATEX, GRG_SOLN, GRG, BOTH_SOLN_VERB, BOTH_SOLN, BOTH, MARKS}

@@ -1,0 +1,12 @@
+#u test
+#a 00
+
+#q 03
+
+#check SEM_T
+
+[a:bool] := T
+[b:bool] := T
+[c:bool] := F
+
+a & b => c

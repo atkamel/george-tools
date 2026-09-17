@@ -1,0 +1,12 @@
+
++-+-+ George Version 2026-09-06
+
+#q 03, part 1, #check SEM_T
+++ Comment: Symbols correctly declared
+++ Comment: Typechecking passed
+++ Comment: All types and symbols used are declared
+++ Comment: All types and symbols are used
+++ Comment: Formula means F
+++ Comment: Syntax checked
+-- Error: Formula does not mean T in this BV/interpretation
+

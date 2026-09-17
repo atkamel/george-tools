@@ -1,0 +1,13 @@
+#u test
+#a 00
+
+#q 02
+
+#check PREDTYPES
+
+{Person, Course}
+SE212:Course
+studies: Person --> bool
+passes: Person prod Course --> bool
+
+forall x:Person. studies(x) => passes(x,SE212)

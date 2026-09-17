@@ -1,0 +1,12 @@
+
++-+-+ George Version 2026-09-06
+
+#q 07, part 1, #check ND
+++ Comment: Typechecking passed
+++ Comment: All lines numbers different
+++ Comment: ND rules checked
+++ Comment: Goal matches proof
+++ Comment: Syntax checked
+-- Warning: Unchecked rule: `arith` used on line(s): 10, 13, 14
+-- Warning: Unchecked rule: `induction` used on line(s): 16
+

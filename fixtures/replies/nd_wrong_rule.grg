@@ -1,0 +1,15 @@
+#u test
+#a 00
+
+#q 05
+
+#check ND
+
+p => !p  |-  !p
+
+1) p => !p premise
+2) disprove p {
+  3) !p by and_e on 1,2
+  4) false by not_e on 2, 3
+}
+5) !p by raa on 2-4

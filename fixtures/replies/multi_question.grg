@@ -1,0 +1,22 @@
+#u test
+#a 00
+
+#q 01a
+
+#check PROP
+
+a => b
+
+#check PROP
+
+a => !b
+
+#q 01b
+
+#check ND
+
+p, q |- p & q
+
+1) p premise
+2) q premise
+3) p & q by and_i on 1,2

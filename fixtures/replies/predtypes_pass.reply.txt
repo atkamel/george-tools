@@ -1,0 +1,10 @@
+
++-+-+ George Version 2026-09-06
+
+#q 02, part 1, #check PREDTYPES
+++ Comment: Symbols correctly declared
+++ Comment: Typechecking passed
+++ Comment: All types and symbols used are declared
+++ Comment: All types and symbols are used
+++ Comment: Syntax checked
+
