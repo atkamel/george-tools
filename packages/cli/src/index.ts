@@ -12,6 +12,9 @@ import {
   loadSession,
   clearSession,
   login,
+  loginWithCookie,
+  isBrowserName,
+  BROWSERS,
   downloadAll,
   init,
   ensureSession,
@@ -19,6 +22,8 @@ import {
   GeorgeUnreachableError,
   NotLoggedInError,
   NoBrowserError,
+  LoginCancelledError,
+  type BrowserName,
 } from "@george-tools/core";
 import { askUserIds } from "./prompt.js";
 import { bold, colourReply, colourSummary, dim, green, red, yellow } from "./format.js";
@@ -34,12 +39,28 @@ const program = new Command()
 program
   .command("login")
   .description("Sign in to the course site in a browser window and save the session.")
-  .action(async () => {
+  .option("--browser <name>", `which browser to open: ${BROWSERS.join(", ")} (default: the first one installed)`)
+  .option("--browser-path <file>", "a browser executable to use instead of searching")
+  .option("--no-windows-browser", "on WSL, open a Linux browser instead of a Windows one")
+  .option(
+    "--cookie <header>",
+    "skip the browser: paste the Cookie header from a request to student.cs.uwaterloo.ca in a browser you signed in with",
+  )
+  .action(async (opts: { browser?: string; browserPath?: string; windowsBrowser: boolean; cookie?: string }) => {
     try {
-      await login({ onStatus: (m) => console.log(dim(m)) });
+      if (opts.cookie) {
+        await loginWithCookie(opts.cookie);
+      } else {
+        await login({
+          browser: browserName(opts.browser),
+          browserPath: opts.browserPath,
+          windowsBrowser: opts.windowsBrowser,
+          onStatus: (m) => console.log(dim(m)),
+        });
+      }
       console.log(green("Logged in.") + dim(` Session saved in ${configDir()}.`));
     } catch (err) {
-      if (err instanceof NoBrowserError) fail(err.message, EXIT_UNREACHABLE);
+      if (err instanceof NoBrowserError || err instanceof LoginCancelledError) fail(err.message, EXIT_UNREACHABLE);
       throw err;
     }
   });
@@ -143,6 +164,12 @@ program
       throw err;
     }
   });
+
+function browserName(value: string | undefined): BrowserName | undefined {
+  if (value === undefined) return undefined;
+  if (!isBrowserName(value)) fail(`Unknown browser "${value}". Choose one of ${BROWSERS.join(", ")}.`, EXIT_FAIL);
+  return value;
+}
 
 function printFile(e: { group: string; file: string; status: "written" | "skipped" }) {
   const mark = e.status === "written" ? green("+") : dim("=");

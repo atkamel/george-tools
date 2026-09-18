@@ -10,3 +10,7 @@ export const LOGIN_PROBE_URL = `${COURSE_ROOT}/asn/a00/a00q01.grg`;
 export const MAX_FILE_BYTES = 200 * 1024;
 /** The web UI waits this long for a reply. */
 export const DEFAULT_TIMEOUT_MS = 15 * 60 * 1000;
+/** The cookie mellon sets once the UWaterloo sign-in succeeds. Pasted by hand for `login --cookie`. */
+export const MELLON_COOKIE_NAME = "mellon-student.cs.uwaterloo.ca";
+/** The web UI waits this long for a reply. */
+export const LOGIN_TIMEOUT_MS = 10 * 60 * 1000;

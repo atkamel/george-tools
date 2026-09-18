@@ -11,7 +11,7 @@
     "url": "https://github.com/LegendaryAKx3/george-tools.git"
   },
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.102.0"
   },
   "categories": [
     "Programming Languages",
@@ -147,6 +147,22 @@
           "type": "number",
           "default": 900000,
           "description": "How long to wait for george before giving up, in milliseconds."
+        },
+        "george.browser": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "chrome",
+            "edge",
+            "firefox"
+          ],
+          "default": "auto",
+          "description": "Browser to open for the course-site login. auto picks the first of Chrome, Edge, Firefox that is installed."
+        },
+        "george.browserPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to a browser executable to use for login instead of searching."
         }
       }
     }
@@ -156,7 +172,7 @@
     "package": "node package.mjs"
   },
   "dependencies": {
-    "playwright-core": "^1.48.0"
+    "puppeteer-core": "^25.11.0"
   },
   "devDependencies": {
     "@george-tools/core": "0.1.0",

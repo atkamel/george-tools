@@ -43,10 +43,16 @@ export function clearSession(): void {
   }
 }
 
+/** Whether a cookie set for `domain` (with or without a leading dot) is sent to `host`. */
+export function cookieMatchesHost(domain: string, host: string): boolean {
+  const bare = domain.replace(/^\./, "");
+  return host === bare || host.endsWith(`.${bare}`);
+}
+
 export function cookieHeader(session: Session, url: string): string {
   const host = new URL(url).hostname;
   return session.cookies
-    .filter((c) => host === c.domain.replace(/^\./, "") || host.endsWith(c.domain))
+    .filter((c) => cookieMatchesHost(c.domain, host))
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
 }

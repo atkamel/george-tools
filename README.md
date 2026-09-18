@@ -20,7 +20,18 @@ Exit codes for `check`: 0 all passed, 1 something failed, 2 george unreachable o
 
 Version control is up to you. Make a private repo, run `george init` inside it, commit.
 
-`george login` uses your installed Chrome or Edge. Sessions and config live in `~/.config/george/`.
+### Logging in
+
+`george login` opens a browser window on the UWaterloo sign-in and saves the course-site cookies once you are through. It uses a browser you already have, trying Google Chrome, then Microsoft Edge, then Firefox. Pick one with `--browser firefox`, or point at any executable with `--browser-path`. Firefox needs to be version 129 or newer.
+
+| Where you run it | What opens |
+|---|---|
+| Windows, macOS, Linux | Your installed Chrome, Edge or Firefox. |
+| WSL | A Windows browser, driven through the Windows Node.js that WSL already exposes. Nothing to install on the Linux side. Pass `--no-windows-browser` to use a Linux browser instead. |
+
+Safari cannot be driven this way. On a Mac without Chrome, Edge or Firefox, or anywhere the browser window fails to open, sign in to the course site in any browser, open its devtools, copy the `Cookie` header from a request to `student.cs.uwaterloo.ca` (Network tab, request headers), and run `george login --cookie "<paste>"`. Paste the whole header: the session is tied to one backend by a second cookie.
+
+Sessions and config live in `~/.config/george/` (`%USERPROFILE%\.config\george` on Windows). Node.js 22.12 or newer is required; on Ubuntu, the `apt` package is older, so use [nvm](https://github.com/nvm-sh/nvm) or the NodeSource repository.
 
 ## VS Code extension
 
@@ -43,3 +54,5 @@ npm run build
 npm test
 npm run fixtures   # re-collect replies from george
 ```
+
+`packages/cli/dist/login-worker.js` (and the same file in the extension) is the browser half of `login`, bundled separately so that on WSL the core library can run it under Windows Node.js.

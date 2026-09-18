@@ -13,7 +13,9 @@ import {
   ensureConfig,
   NotLoggedInError,
   NoBrowserError,
+  isBrowserName,
   type Feedback,
+  type LoginOptions,
 } from "@george-tools/core";
 import { AssignmentsProvider, FileNode } from "./assignments.js";
 import { toDiagnostics } from "./diagnostics.js";
@@ -21,9 +23,11 @@ import { toDiagnostics } from "./diagnostics.js";
 let output: vscode.OutputChannel;
 let diagnostics: vscode.DiagnosticCollection;
 let status: vscode.StatusBarItem;
+let extensionPath: string;
 const lastResult = new Map<string, Feedback>();
 
 export function activate(context: vscode.ExtensionContext): void {
+  extensionPath = context.extensionPath;
   output = vscode.window.createOutputChannel("George");
   diagnostics = vscode.languages.createDiagnosticCollection("george");
   status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 50);
@@ -107,11 +111,23 @@ function updateStatus(editor: vscode.TextEditor | undefined): void {
   status.show();
 }
 
+/** Browser settings, plus the worker core runs under Windows Node.js when the extension host is WSL. */
+function loginOptions(): Omit<LoginOptions, "onStatus"> {
+  const cfg = vscode.workspace.getConfiguration("george");
+  const browser = cfg.get<string>("browser") ?? "auto";
+  const browserPath = cfg.get<string>("browserPath") ?? "";
+  return {
+    browser: isBrowserName(browser) ? browser : undefined,
+    browserPath: browserPath.length > 0 ? browserPath : undefined,
+    workerPath: path.join(extensionPath, "dist", "login-worker.js"),
+  };
+}
+
 async function loginCommand(): Promise<void> {
   try {
     await vscode.window.withProgress(
       { location: vscode.ProgressLocation.Notification, title: "george: sign in to the course site in the browser window" },
-      () => login(),
+      (progress) => login({ ...loginOptions(), onStatus: (message) => progress.report({ message }) }),
     );
     void vscode.window.showInformationMessage("george: logged in.");
   } catch (err) {
@@ -157,7 +173,7 @@ async function downloadEverything(): Promise<void> {
     return;
   }
   try {
-    const session = await ensureSession();
+    const session = await ensureSession(undefined, loginOptions());
     const { userIds } = await ensureConfig(askUserIds);
     const report = await vscode.window.withProgress(
       { location: vscode.ProgressLocation.Notification, title: "george: downloading assignment files" },
@@ -183,7 +199,7 @@ async function downloadOne(node: FileNode): Promise<void> {
     return;
   }
   try {
-    const session = await ensureSession();
+    const session = await ensureSession(undefined, loginOptions());
     const { userIds } = await ensureConfig(askUserIds);
     const target = vscode.Uri.file(path.join(root, node.group.name, node.file.name));
     const exists = await vscode.workspace.fs.stat(target).then(() => true, () => false);

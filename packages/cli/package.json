@@ -6,20 +6,27 @@
   "bin": {
     "george": "./dist/george.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12"
   },
   "scripts": {
     "build": "tsc -b && node build.mjs"
   },
   "dependencies": {
     "commander": "^12.1.0",
-    "playwright-core": "^1.48.0"
+    "puppeteer-core": "^25.11.0"
   },
   "devDependencies": {
     "@george-tools/core": "0.1.0"
   },
-  "keywords": ["george", "se212", "uwaterloo", "logic"],
+  "keywords": [
+    "george",
+    "se212",
+    "uwaterloo",
+    "logic"
+  ],
   "license": "MIT"
 }

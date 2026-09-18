@@ -16,10 +16,29 @@ export {
   clearSession,
   isExpired,
   cookieHeader,
+  cookieMatchesHost,
   type Session,
   type Cookie,
 } from "./session.js";
-export { login, NoBrowserError, type LoginOptions } from "./login.js";
+export {
+  login,
+  loginInBrowser,
+  loginWithCookie,
+  parseCookieInput,
+  NoBrowserError,
+  LoginCancelledError,
+  type LoginOptions,
+} from "./login.js";
+export {
+  BROWSERS,
+  BROWSER_LABELS,
+  isBrowserName,
+  findBrowser,
+  pickBrowser,
+  type BrowserName,
+  type FoundBrowser,
+} from "./browsers.js";
+export { isWsl, findWindowsNode } from "./wsl.js";
 export { writeHeader } from "./header.js";
 export {
   listFiles,

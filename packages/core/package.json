@@ -8,12 +8,14 @@
   "exports": {
     ".": "./dist/index.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -b"
   },
   "dependencies": {
-    "playwright-core": "^1.48.0"
+    "puppeteer-core": "^25.11.0"
   },
   "license": "MIT"
 }
