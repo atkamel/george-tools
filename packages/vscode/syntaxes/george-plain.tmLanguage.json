@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "george (no highlighting)",
+  "scopeName": "source.grg.plain",
+  "fileTypes": [
+    "grg"
+  ],
+  "patterns": []
+}

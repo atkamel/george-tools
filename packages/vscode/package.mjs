@@ -21,7 +21,7 @@ delete pkg.scripts;
 delete pkg.private;
 writeFileSync(path.join(stage, "package.json"), JSON.stringify(pkg, null, 2));
 
-for (const f of ["README.md", "LICENSE", "language-configuration.json", "syntaxes", "dist"]) {
+for (const f of ["README.md", "LICENSE", "language-configuration.json", "syntaxes", "media", "dist"]) {
   cpSync(path.join(here, f), path.join(stage, f), { recursive: true });
 }
 writeFileSync(path.join(stage, ".vscodeignore"), "**/*.map\n");

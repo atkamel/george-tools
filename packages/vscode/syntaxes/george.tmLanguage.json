@@ -2,27 +2,59 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "george",
   "scopeName": "source.grg",
-  "fileTypes": ["grg"],
+  "fileTypes": [
+    "grg"
+  ],
   "patterns": [
-    { "include": "#comments" },
-    { "include": "#directives" },
-    { "include": "#labels" },
-    { "include": "#proof-keywords" },
-    { "include": "#rules" },
-    { "include": "#z-keywords" },
-    { "include": "#pc-keywords" },
-    { "include": "#quantifiers" },
-    { "include": "#set-keywords" },
-    { "include": "#types" },
-    { "include": "#constants" },
-    { "include": "#operators" },
-    { "include": "#numbers" }
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "#labels"
+    },
+    {
+      "include": "#proof-keywords"
+    },
+    {
+      "include": "#rules"
+    },
+    {
+      "include": "#z-keywords"
+    },
+    {
+      "include": "#pc-keywords"
+    },
+    {
+      "include": "#quantifiers"
+    },
+    {
+      "include": "#set-keywords"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#operators"
+    }
   ],
   "repository": {
     "comments": {
       "patterns": [
-        { "name": "comment.line.double-slash.grg", "match": "//.*$" },
-        { "name": "comment.block.grg", "begin": "/\\*", "end": "\\*/" }
+        {
+          "name": "comment.line.double-slash.grg",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.grg",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
       ]
     },
     "directives": {
@@ -30,22 +62,34 @@
         {
           "match": "^(#check)\\s+(PROP|PRED|PREDTYPES|SEM|SEM_T|SEM_F|SEM_CE|TP|ND|ST|Z|PC|PCrun|PCrunVerbose|NONE)\\b",
           "captures": {
-            "1": { "name": "keyword.control.directive.grg" },
-            "2": { "name": "entity.name.type.method.grg" }
+            "1": {
+              "name": "keyword.control.directive.grg"
+            },
+            "2": {
+              "name": "entity.name.type.method.grg"
+            }
           }
         },
         {
           "match": "^(#u|#a|#q)\\b(.*)$",
           "captures": {
-            "1": { "name": "keyword.control.directive.grg" },
-            "2": { "name": "string.unquoted.directive-argument.grg" }
+            "1": {
+              "name": "keyword.control.directive.grg"
+            },
+            "2": {
+              "name": "string.unquoted.directive-argument.grg"
+            }
           }
         }
       ]
     },
     "labels": {
       "patterns": [
-        { "name": "entity.name.tag.label.grg", "match": "^\\s*[A-Za-z0-9_]+\\)" }
+        {
+          "comment": "Line labels such as `3)`. A string scope, which themes paint softly.",
+          "name": "string.unquoted.label.grg",
+          "match": "^\\s*[A-Za-z0-9_]+\\)"
+        }
       ]
     },
     "proof-keywords": {
@@ -54,7 +98,10 @@
           "name": "keyword.control.proof.grg",
           "match": "\\b(premise|assume|disprove|case|for\\s+some|for\\s+every|inductionstep|closed|by|on)\\b"
         },
-        { "name": "invalid.illegal.magic.grg", "match": "\\bmagic\\b" }
+        {
+          "name": "invalid.illegal.magic.grg",
+          "match": "\\bmagic\\b"
+        }
       ]
     },
     "rules": {
@@ -67,52 +114,78 @@
     },
     "z-keywords": {
       "patterns": [
-        { "name": "keyword.control.z.grg", "match": "\\b(schema|begin|pred|end|Delta|Xi)\\b" },
-        { "name": "keyword.operator.z.grg", "match": "::=|;;" }
+        {
+          "name": "keyword.control.z.grg",
+          "match": "\\b(schema|begin|pred|end|Delta|Xi)\\b"
+        },
+        {
+          "name": "keyword.operator.expression.z.grg",
+          "match": "::=|;;"
+        }
       ]
     },
     "pc-keywords": {
       "patterns": [
-        { "name": "keyword.control.pc.grg", "match": "\\b(proc|fun|if|then|else|while|do|assert|return)\\b" },
-        { "name": "keyword.operator.assignment.grg", "match": ":=" }
+        {
+          "name": "keyword.control.pc.grg",
+          "match": "\\b(proc|fun|if|then|else|while|do|assert|return)\\b"
+        },
+        {
+          "name": "keyword.operator.expression.assignment.grg",
+          "match": ":="
+        }
       ]
     },
     "quantifiers": {
       "patterns": [
-        { "name": "keyword.operator.quantifier.grg", "match": "\\b(forall|exists)\\b" }
+        {
+          "name": "keyword.operator.expression.quantifier.grg",
+          "match": "\\b(forall|exists)\\b"
+        }
       ]
     },
     "set-keywords": {
       "patterns": [
         {
-          "name": "keyword.operator.set.grg",
+          "name": "keyword.operator.expression.set.grg",
           "match": "\\b(in|sube|sub|union|inter|compl|diff|card|pow|gen_U|gen_I|prod|dom|ran|id|iter|empty|univ)\\b"
         },
-        { "name": "keyword.operator.relation.grg", "match": "<\\||<-\\||\\|>|\\|->|\\(\\+\\)|\\(\\||\\|\\)|-\\|->|-->>|-->|~" }
+        {
+          "name": "keyword.operator.expression.relation.grg",
+          "match": "<\\||<-\\||\\|>|\\|->|\\(\\+\\)|\\(\\||\\|\\)|-\\|->|-->>|-->|~"
+        }
       ]
     },
     "types": {
       "patterns": [
-        { "name": "storage.type.grg", "match": "\\b(nat|bool|int)\\b" }
+        {
+          "name": "storage.type.grg",
+          "match": "\\b(nat|bool|int)\\b"
+        }
       ]
     },
     "constants": {
       "patterns": [
-        { "name": "constant.language.boolean.grg", "match": "\\b(true|false)\\b" },
-        { "name": "constant.language.truth-value.grg", "match": "(?<=:=\\s*)\\b(T|F)\\b" }
+        {
+          "name": "constant.language.boolean.grg",
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "name": "constant.language.truth-value.grg",
+          "match": "(?<=:=\\s*)\\b(T|F)\\b"
+        }
       ]
     },
     "operators": {
       "patterns": [
-        { "name": "keyword.operator.goal.grg", "match": "<->|\\|-|\\|=|<==>" },
-        { "name": "keyword.operator.logical.grg", "match": "<=>|=>|&|\\||!" },
-        { "name": "keyword.operator.comparison.grg", "match": "!=|>=|<=|=|<|>" },
-        { "name": "keyword.operator.arithmetic.grg", "match": "\\+|-|\\*|/|\\^" }
-      ]
-    },
-    "numbers": {
-      "patterns": [
-        { "name": "constant.numeric.grg", "match": "\\b[0-9]+\\b" }
+        {
+          "name": "keyword.operator.expression.goal.grg",
+          "match": "<->|\\|-|\\|=|<==>"
+        },
+        {
+          "name": "keyword.operator.expression.logical.grg",
+          "match": "<=>|=>|&|\\||!"
+        }
       ]
     }
   }
