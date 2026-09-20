@@ -8,7 +8,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LegendaryAKx3/george-tools.git"
+    "url": "https://github.com/atkamel/george-tools.git",
+    "directory": "packages/vscode"
+  },
+  "homepage": "https://github.com/atkamel/george-tools#readme",
+  "bugs": {
+    "url": "https://github.com/atkamel/george-tools/issues"
   },
   "engines": {
     "vscode": "^1.102.0"

@@ -1,5 +1,5 @@
 // Packages the extension as a .vsix. The extension's runtime dependency
-// (playwright-core) is hoisted to the monorepo root, which vsce cannot see,
+// (puppeteer-core) is hoisted to the monorepo root, which vsce cannot see,
 // so the extension is staged in a plain folder and its dependencies installed
 // there before vsce runs.
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";

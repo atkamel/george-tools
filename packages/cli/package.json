@@ -2,6 +2,15 @@
   "name": "george-tools",
   "version": "0.1.0",
   "description": "CLI for george, the SE212 logic checker: download assignments, check .grg files from the terminal.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atkamel/george-tools.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/atkamel/george-tools#readme",
+  "bugs": {
+    "url": "https://github.com/atkamel/george-tools/issues"
+  },
   "type": "module",
   "bin": {
     "george": "./dist/george.js"
@@ -13,7 +22,8 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "build": "tsc -b && node build.mjs"
+    "build": "tsc -b && node build.mjs",
+    "prepack": "node -e \"const f=require('fs');f.copyFileSync('../../README.md','README.md');f.copyFileSync('../../LICENSE','LICENSE')\""
   },
   "dependencies": {
     "commander": "^12.1.0",
