@@ -17,13 +17,14 @@ import {
   type Feedback,
   type LoginOptions,
 } from "@george-tools/core";
-import { AssignmentsProvider, FileNode } from "./assignments.js";
+import { AssignmentsProvider, FileNode, GroupNode } from "./assignments.js";
 import { toDiagnostics } from "./diagnostics.js";
 
 let output: vscode.OutputChannel;
 let diagnostics: vscode.DiagnosticCollection;
 let status: vscode.StatusBarItem;
 let extensionPath: string;
+let assignments: AssignmentsProvider;
 const lastResult = new Map<string, Feedback>();
 
 /**
@@ -58,7 +59,7 @@ export function activate(context: vscode.ExtensionContext): void {
   status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 50);
   status.command = "george.run";
 
-  const assignments = new AssignmentsProvider();
+  assignments = new AssignmentsProvider((uri) => lastResult.get(uri.toString()));
   vscode.window.registerTreeDataProvider("georgeAssignments", assignments);
 
   context.subscriptions.push(
@@ -71,6 +72,8 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("george.download", downloadEverything),
     vscode.commands.registerCommand("george.downloadFile", downloadOne),
     vscode.commands.registerCommand("george.refreshAssignments", () => assignments.refresh()),
+    vscode.commands.registerCommand("george.runAll", runAll),
+    assignments,
     vscode.window.onDidChangeActiveTextEditor(updateStatus),
     vscode.workspace.onDidOpenTextDocument((doc) => void applyHighlighting(doc)),
     vscode.workspace.onDidChangeConfiguration((e) => {
@@ -130,6 +133,43 @@ function applyResult(uri: vscode.Uri, raw: string): void {
   if (doc) diagnostics.set(doc.uri, toDiagnostics(doc, fb));
   lastResult.set(uri.toString(), fb);
   updateStatus(vscode.window.activeTextEditor);
+  assignments.refresh(false);
+}
+
+/** Runs george on every .grg in the panel, or in one group when invoked from a group node. */
+async function runAll(node?: GroupNode): Promise<void> {
+  const files = await assignments.localFiles(node instanceof GroupNode ? node.name : undefined);
+  if (files.length === 0) {
+    void vscode.window.showInformationMessage("george: no .grg files in the workspace folder.");
+    return;
+  }
+  output.clear();
+  output.show(true);
+  let failed = 0;
+  await vscode.window.withProgress(
+    { location: vscode.ProgressLocation.Notification, title: "george: checking files", cancellable: true },
+    async (progress, token) => {
+      for (const [i, uri] of files.entries()) {
+        if (token.isCancellationRequested) return;
+        progress.report({ message: `${path.basename(uri.fsPath)} (${i + 1}/${files.length})`, increment: 100 / files.length });
+        const doc = await vscode.workspace.openTextDocument(uri);
+        try {
+          const raw = await check(doc.getText(), { timeoutMs: timeoutSetting() });
+          const fb = parseFeedback(raw);
+          diagnostics.set(uri, toDiagnostics(doc, fb));
+          lastResult.set(uri.toString(), fb);
+          output.appendLine(`${fb.ok ? "PASS" : "FAIL"}  ${vscode.workspace.asRelativePath(uri)}`);
+          if (!fb.ok) failed++;
+        } catch (err) {
+          output.appendLine(`ERROR ${vscode.workspace.asRelativePath(uri)}: ${(err as Error).message}`);
+          failed++;
+        }
+      }
+    },
+  );
+  updateStatus(vscode.window.activeTextEditor);
+  assignments.refresh(false);
+  output.appendLine(failed === 0 ? `All ${files.length} files passed.` : `${failed} of ${files.length} files failed.`);
 }
 
 function updateStatus(editor: vscode.TextEditor | undefined): void {
@@ -216,7 +256,7 @@ function workspaceRoot(): string | undefined {
 }
 
 async function downloadEverything(): Promise<void> {
-  const root = workspaceRoot();
+  const root = assignments.root()?.fsPath ?? workspaceRoot();
   if (!root) {
     if (!vscode.workspace.workspaceFolders?.length) void vscode.window.showErrorMessage("george: open a folder first; files download into it.");
     return;
@@ -233,6 +273,7 @@ async function downloadEverything(): Promise<void> {
           onFile: (e) => progress.report({ message: `${e.group}/${e.file}` }),
         }),
     );
+    assignments.refresh(false);
     void vscode.window.showInformationMessage(
       `george: ${report.written.length} file(s) written, ${report.skipped.length} already present.`,
     );
@@ -242,21 +283,19 @@ async function downloadEverything(): Promise<void> {
 }
 
 async function downloadOne(node: FileNode): Promise<void> {
-  const root = workspaceRoot();
-  if (!root) {
-    if (!vscode.workspace.workspaceFolders?.length) void vscode.window.showErrorMessage("george: open a folder first; files download into it.");
+  if (node.onDisk || !node.remotePath) {
+    await vscode.window.showTextDocument(node.uri);
     return;
   }
+  const root = workspaceRoot();
+  if (!root) return;
   try {
     const session = await ensureSession(undefined, loginOptions());
     const { userIds } = await ensureConfig(askUserIds);
-    const target = vscode.Uri.file(path.join(root, node.group.name, node.file.name));
-    const exists = await vscode.workspace.fs.stat(target).then(() => true, () => false);
-    if (!exists) {
-      const text = writeHeader(await download(node.file.path, session), userIds);
-      await vscode.workspace.fs.writeFile(target, Buffer.from(text, "utf8"));
-    }
-    await vscode.window.showTextDocument(target);
+    const text = writeHeader(await download(node.remotePath, session), userIds);
+    await vscode.workspace.fs.writeFile(node.uri, Buffer.from(text, "utf8"));
+    assignments.refresh(false);
+    await vscode.window.showTextDocument(node.uri);
   } catch (err) {
     reportDownloadError(err);
   }

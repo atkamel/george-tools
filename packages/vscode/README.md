@@ -9,6 +9,12 @@ Run [george](https://student.cs.uwaterloo.ca/~se212/george/george-docs-1/index.h
 
 Setting: `george.timeoutMs`, how long to wait for george.
 
+## The George panel
+
+The G in the Activity Bar opens a view of the folder you have open, laid out the way the course site and the `george` CLI lay it out: one group per folder (Assignment 1, Homework, ...) and the `.grg` files inside. Files you have open in the editor when clicked. Files the course index lists that are not on disk yet are dimmed with a download icon, and a click downloads one into place. Each file shows its last result: a check, a cross with the number of failures, or a wand when magic was used.
+
+Title buttons: **Sync** downloads every file that is new on the course site and never overwrites anything on disk; **Run George on all files** checks the whole folder, or one group from its row; **Refresh** re-reads the folder and the index. Log in and user ids are under the `...` menu. An empty folder gets a button that downloads everything, which is `george init` from the sidebar. Set `george.folder` if the assignments live in a subfolder of the workspace.
+
 ## Highlighting
 
 Three looks, chosen with the `george.highlighting` setting:

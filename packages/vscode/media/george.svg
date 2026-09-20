@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-  <!-- A turnstile: the "proves" symbol. Single colour so the Activity Bar can recolour it. -->
-  <rect x="4" y="3" width="2.4" height="18" rx="1" fill="currentColor"/>
-  <rect x="6" y="10.8" width="14" height="2.4" rx="1" fill="currentColor"/>
-</svg>

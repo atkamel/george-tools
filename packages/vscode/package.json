@@ -87,7 +87,7 @@
       },
       {
         "command": "george.download",
-        "title": "Download all assignment files",
+        "title": "Sync: download new assignment files",
         "category": "george",
         "icon": "$(cloud-download)"
       },
@@ -101,6 +101,12 @@
         "title": "Refresh",
         "category": "george",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "george.runAll",
+        "title": "Run George on all files",
+        "category": "george",
+        "icon": "$(run-all)"
       }
     ],
     "menus": {
@@ -122,18 +128,38 @@
         {
           "command": "george.download",
           "when": "view == georgeAssignments",
-          "group": "navigation"
+          "group": "navigation@1"
+        },
+        {
+          "command": "george.runAll",
+          "when": "view == georgeAssignments",
+          "group": "navigation@2"
         },
         {
           "command": "george.refreshAssignments",
           "when": "view == georgeAssignments",
-          "group": "navigation"
+          "group": "navigation@3"
+        },
+        {
+          "command": "george.login",
+          "when": "view == georgeAssignments",
+          "group": "1_session@1"
+        },
+        {
+          "command": "george.setUserIds",
+          "when": "view == georgeAssignments",
+          "group": "1_session@2"
         }
       ],
       "view/item/context": [
         {
           "command": "george.downloadFile",
-          "when": "view == georgeAssignments && viewItem == file",
+          "when": "view == georgeAssignments && viewItem == remoteFile",
+          "group": "inline"
+        },
+        {
+          "command": "george.runAll",
+          "when": "view == georgeAssignments && viewItem == group",
           "group": "inline"
         }
       ],
@@ -160,7 +186,7 @@
       "george": [
         {
           "id": "georgeAssignments",
-          "name": "SE212 Assignments",
+          "name": "Workspace",
           "contextualTitle": "George"
         }
       ]
@@ -203,6 +229,11 @@
             "No syntax colours. Run George, diagnostics and downloads still work."
           ],
           "description": "How .grg files are coloured. Applies to files as they are opened."
+        },
+        "george.folder": {
+          "type": "string",
+          "default": "",
+          "description": "Subfolder of the workspace where assignment files live, if not the workspace root. Relative path, for example \"se212\"."
         }
       }
     },
@@ -211,14 +242,20 @@
         {
           "id": "george",
           "title": "George",
-          "icon": "media/george.svg"
+          "icon": "media/george-g.svg"
         }
       ]
     },
     "viewsWelcome": [
       {
         "view": "georgeAssignments",
-        "contents": "Assignment and homework files from the course site.\n[Log in to the course site](command:george.login)\n[Set group user ids](command:george.setUserIds)"
+        "when": "george.state == noFolder",
+        "contents": "Open the folder you keep your SE212 work in.\n[Open Folder](command:vscode.openFolder)"
+      },
+      {
+        "view": "georgeAssignments",
+        "when": "george.state == empty",
+        "contents": "This folder has no assignment files yet. Download every assignment and homework file into it, in the same layout as the course site. Files already here are never overwritten.\n[Download all assignments](command:george.download)\nYou will be asked to log in and for your group's WatIAM ids if they are not saved."
       }
     ]
   },
