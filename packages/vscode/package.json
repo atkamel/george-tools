@@ -1,7 +1,7 @@
 {
   "name": "george-vscode",
   "displayName": "george",
-  "description": "Run george (SE212, University of Waterloo) on .grg files from VS Code: syntax highlighting, Run button, diagnostics, assignment downloads.",
+  "description": "george, the SE212 logic checker, inside VS Code: run it on .grg files, see failures in the Problems panel, download and track assignments, syntax highlighting.",
   "version": "0.1.0",
   "publisher": "george-tools",
   "private": true,

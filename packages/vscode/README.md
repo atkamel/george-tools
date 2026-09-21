@@ -1,13 +1,11 @@
 # george for VS Code
 
-Run [george](https://student.cs.uwaterloo.ca/~se212/george/george-docs-1/index.html), the SE212 logic checker, on `.grg` files without leaving the editor.
+Run [george](https://student.cs.uwaterloo.ca/~se212/george/george-docs-1/index.html), the SE212 logic checker at the University of Waterloo, on `.grg` files without leaving the editor.
 
-- **Run George**: the play button in the editor title bar, Ctrl+Enter (Cmd+Enter on Mac), the right-click menu, or the command palette. The full reply lands in the "George" output channel. Failed checks show in the Problems panel on the lines george names, and the status bar shows pass, fail, or magic used.
-- **Syntax highlighting** for directives, proof keywords, rule names, set and Z operators. `magic` is highlighted as an error.
-- **SE212 Assignments** view in the Explorer: every assignment and homework file the course publishes. Click one to download it into the open folder as `Assignment N/<file>` with your group's `#u` line filled in. The download button at the top fetches everything, skipping files you already have.
-- **Log in to the course site** opens your Chrome, Edge or Firefox for the UWaterloo sign-in and keeps the session in `~/.config/george/`, shared with the `george` CLI. Choose the browser with the `george.browser` setting, or point `george.browserPath` at an executable. In a WSL window the browser is a Windows one. Safari is not supported: use `george login --cookie` from the CLI instead.
-
-Setting: `george.timeoutMs`, how long to wait for george.
+- **Run George** with the play button in the editor title, Ctrl+Enter (Cmd+Enter on Mac), the right-click menu or the command palette. The full reply goes to the George output channel, each failure lands in the Problems panel on the line george names, and the status bar shows pass, fail or magic used.
+- **The George panel**, behind the G in the Activity Bar, shows your assignment folder: one group per assignment, the last result beside every file, files the course has published that you have not downloaded yet, and buttons to sync new files or check the whole folder.
+- **Log in to the course site** from the panel. Your own Chrome, Edge or Firefox opens for the UWaterloo sign-in, and the session is shared with the [`george` CLI](https://www.npmjs.com/package/george-tools).
+- **Syntax highlighting** with three looks: a calm default, a rule-for-rule port of GeorgeCode, or off.
 
 ## The George panel
 
@@ -30,3 +28,15 @@ The change applies to files as they are opened.
 ## Live Share
 
 Nothing to set up. In a [Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) session, a guest can press Run George on a shared `.grg` file: it runs on the guest's machine on the synced text, so the result matches the host's. When the host runs it, Live Share copies the host's Problems entries to every guest, so both see the failures on the same lines. Downloads happen on the host, since guests have no folder on disk.
+
+## Settings
+
+| Setting | What it does |
+|---|---|
+| `george.highlighting` | `default`, `georgecode` or `off`. See Highlighting above. |
+| `george.folder` | Subfolder of the workspace that holds the assignments. Empty means the workspace folder itself. |
+| `george.browser` | `auto` tries Chrome, then Edge, then Firefox. Or name one. |
+| `george.browserPath` | Path to a browser executable, when `george.browser` is not enough. |
+| `george.timeoutMs` | How long to wait for george before giving up. |
+
+Safari is not supported: run `george login --cookie` from the CLI instead. In a WSL window the browser that opens is a Windows one.
