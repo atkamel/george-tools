@@ -16,6 +16,8 @@ rmSync(stage, { recursive: true, force: true });
 mkdirSync(stage);
 
 const pkg = JSON.parse(readFileSync(path.join(here, "package.json"), "utf8"));
+// The workspace name must differ from the CLI package, but the Marketplace id is george-tools.
+pkg.name = "george-tools";
 delete pkg.devDependencies;
 delete pkg.scripts;
 delete pkg.private;

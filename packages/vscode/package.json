@@ -1,11 +1,12 @@
 {
-  "name": "george-vscode",
-  "displayName": "george",
-  "description": "george, the SE212 logic checker, inside VS Code: run it on .grg files, see failures in the Problems panel, download and track assignments, syntax highlighting.",
-  "version": "0.1.0",
-  "publisher": "george-tools",
+  "name": "@george-tools/vscode",
+  "displayName": "George Tools",
+  "description": "Highlighting, running and more for .grg files.",
+  "version": "0.1.1",
+  "publisher": "AdamKamel",
   "private": true,
   "license": "MIT",
+  "icon": "media/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/atkamel/george-tools.git",
@@ -39,21 +40,33 @@
         "extensions": [
           ".grg"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./media/george-g-light.svg",
+          "dark": "./media/george-g-dark.svg"
+        }
       },
       {
         "id": "george-classic",
         "aliases": [
           "george (GeorgeCode colours)"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./media/george-g-light.svg",
+          "dark": "./media/george-g-dark.svg"
+        }
       },
       {
         "id": "george-plain",
         "aliases": [
           "george (no highlighting)"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./media/george-g-light.svg",
+          "dark": "./media/george-g-dark.svg"
+        }
       }
     ],
     "grammars": [
